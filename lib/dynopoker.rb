@@ -3,7 +3,7 @@ require 'open-uri'
 
 module Dynopoker
   class << self
-    attr_accessor :address
+    attr_accessor :address, :disable
   end
 
 
@@ -11,8 +11,8 @@ module Dynopoker
     self.address = address unless address.nil?
     raise "Dynopoker: set address to poke first" if self.address.nil?
 
-    if ENV['stopDynoPoking']
-      puts "Dynopoker: poking disabled by setting ENV['stopDynoPoking']"
+    if ENV['stopDynoPoking'] || self.disable
+      puts "Dynopoker: poking disabled"
     else
       Thread.new { while true do sleep(3600); poke; end }
     end
