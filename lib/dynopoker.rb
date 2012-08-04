@@ -8,14 +8,14 @@ module Dynopoker
 
 
   def self.start(address=nil)
-    self.address = address unless address.nil?
-    raise "Dynopoker: set address to poke first" if self.address.nil?
-
     if ENV['stopDynoPoking'] || self.disable
       puts "Dynopoker: poking disabled"
-    else
-      Thread.new { while true do sleep(3600); poke; end }
+      return
     end
+
+    self.address = address unless address.nil?
+    raise "Dynopoker: set address to poke first" if self.address.nil?
+    Thread.new { while true do sleep(3600); poke;end }
   end
 
   def self.poke
