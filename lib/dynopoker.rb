@@ -3,12 +3,12 @@ require 'open-uri'
 
 module Dynopoker
   class << self
-    attr_accessor :address, :disable
+    attr_accessor :address, :disabled
   end
 
 
   def self.start(address=nil)
-    if ENV['stopDynoPoking'] || self.disable
+    if ENV['stopDynoPoking'] || self.disabled
       puts "Dynopoker: poking disabled"
       return
     end
