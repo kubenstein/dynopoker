@@ -5,11 +5,11 @@ require "dynopoker/version"
 Gem::Specification.new do |s|
   s.name        = "dynopoker"
   s.version     = Dynopoker::VERSION
-  s.authors     = ["Kubenstein"]
+  s.authors     = ["kubenstein"]
   s.email       = ["kubenstein@gmail.com"]
-  s.homepage    = ""
-  s.summary     = %q{Write a gem summary}
-  s.description = %q{Write a gem description}
+  s.homepage    = "http://wakemydyno.com"
+  s.summary     = %q{Dynopoker: prevent your heroku dyno from falling asleep}
+  s.description = %q{Dynopoker is a gem that will make your ruby based heroku app self pinging system, preventing single dyno from falling asleep}
 
   s.rubyforge_project = "dynopoker"
 
