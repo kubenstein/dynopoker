@@ -15,7 +15,8 @@ module Dynopoker
 
     self.address = address unless address.nil?
     raise "Dynopoker: set address to poke first" if self.address.nil?
-    Thread.new { until should_poke? do sleep(3600); poke; end }
+    Thread.new { until should_poke? do poke; sleep(3600); end }
+    puts "Dynopoker: thread started"
   end
 
   def self.poke
@@ -23,7 +24,7 @@ module Dynopoker
     open(self.address).content_type
   end
 
-  def should_poke?
+  def self.should_poke?
     !ENV['stopDynoPoking'] && !self.disabled
   end
 end
