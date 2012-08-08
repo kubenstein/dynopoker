@@ -38,8 +38,17 @@ To prevent poking while you are in your development env, add `Dynopoker.disabled
 Usage - Rails app on Unicorn server
 -----
 
-Not yet tested. In future this section will be updated.
+To prevent pinging by every unicorn worker, pinging thread is launched only once. Your `config_unicorn.rb` should looks like:
 
+	worker_processes 4
+	timeout 30
+
+	before_fork do |server, worker|
+		if worker.nr == 0
+			require ::File.expand_path('../environment',  __FILE__)
+			Dynopoker.start
+		end
+	end
 
 ENV['stopDynoPoking']
 ------------
