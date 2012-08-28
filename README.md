@@ -32,8 +32,11 @@ Next set your app url in `config/environments/production.rb` by adding:
 
 	Dynopoker.address = 'http://dynopoker.herokuapp.com'
 
-To prevent poking while you are in your development env, add `Dynopoker.disabled = true` to your `config/environments/development.rb` file.
-	
+To prevent poking while you are in your development env, add
+
+	Dynopoker.disabled = true
+
+to your `config/environments/development.rb` file.
 
 Usage - Rails app on Unicorn server
 -----
@@ -49,6 +52,16 @@ To prevent pinging by every unicorn worker, pinging thread is launched only once
 			Dynopoker.start
 		end
 	end
+
+Next set your app url in `config/environments/production.rb` by adding:
+
+	Dynopoker.address = 'http://dynopoker.herokuapp.com'
+
+To prevent poking while you are in your development env, add
+
+	Dynopoker.disabled = true
+
+to your `config/environments/development.rb` file.
 
 ENV['stopDynoPoking']
 ------------
