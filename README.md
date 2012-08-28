@@ -32,6 +32,8 @@ Next set your app url in `config/environments/production.rb` by adding:
 
 	Dynopoker.address = 'http://dynopoker.herokuapp.com'
 
+You can also use env variable as an address.
+
 To prevent poking while you are in your development env, add
 
 	Dynopoker.disabled = true
@@ -57,11 +59,19 @@ Next set your app url in `config/environments/production.rb` by adding:
 
 	Dynopoker.address = 'http://dynopoker.herokuapp.com'
 
+You can also use env variable as an address.
+
 To prevent poking while you are in your development env, add
 
 	Dynopoker.disabled = true
 
 to your `config/environments/development.rb` file.
+
+Errors
+------------
+Exception will be raised at server start if you forget to provide target address. Error example:
+
+	2012-08-28T19:49:10+00:00 app[web.1]: E, [2012-08-28T19:49:10.596528 #2] ERROR -- : Dynopoker: set address to poke first (RuntimeError)
 
 ENV['stopDynoPoking']
 ------------
