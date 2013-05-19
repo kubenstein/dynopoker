@@ -13,9 +13,7 @@ Installation
 -------
 Put this line into your `Gemfile`:
 
-	gem 'dynopoker', :git => 'git://github.com/kubenstein/dynopoker.git'
-
-( In future Dynopoker will be pushed to official gem repository, so not git url will be required )
+	gem 'dynopoker'
 
 Usage
 -----
