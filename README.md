@@ -17,65 +17,13 @@ Put this line into your `Gemfile`:
 
 ( In future Dynopoker will be pushed to official gem repository, so not git url will be required )
 
-Usage - Rails app on Thin server
+Usage
 -----
+Add this configuration to your config file:
 
-Add `Dynopoker.start` to the very end of your `config.ru` file, so it looks like:
-
-	# This file is used by Rack-based servers to start the application.
-	require ::File.expand_path('../config/environment',  __FILE__)
-	run Dynopoker::Application
-	
-	Dynopoker.start
-	
-Next set your app url in `config/environments/production.rb` by adding:
-
-	Dynopoker.address = 'http://dynopoker.herokuapp.com'
-
-You can also use env variable as an address.
-
-To prevent poking while you are in your development env, add
-
-	Dynopoker.disabled = true
-
-to your `config/environments/development.rb` file.
-
-Usage - Rails app on Unicorn server
------
-
-To prevent pinging by every unicorn worker, pinging thread is launched only once. Your `config_unicorn.rb` should looks like:
-
-	worker_processes 4
-	timeout 30
-
-	before_fork do |server, worker|
-		if worker.nr == 0
-			require ::File.expand_path('../environment',  __FILE__)
-			Dynopoker.start
-		end
+	Dynopoker.configure do |config|
+  		config.address = 'http://dynopoker.com'
+	#  config.enable = false # default is true
+	#  config.poke_frequency = 123 # default is 3600s (1hour)
 	end
-
-Next set your app url in `config/environments/production.rb` by adding:
-
-	Dynopoker.address = 'http://dynopoker.herokuapp.com'
-
-You can also use env variable as an address.
-
-To prevent poking while you are in your development env, add
-
-	Dynopoker.disabled = true
-
-to your `config/environments/development.rb` file.
-
-Errors
-------------
-Exception will be raised at server start if you forget to provide target address. Error example:
-
-	2012-08-28T19:49:10+00:00 app[web.1]: E, [2012-08-28T19:49:10.596528 #2] ERROR -- : Dynopoker: set address to poke first (RuntimeError)
-
-ENV['stopDynoPoking']
-------------
-
-You can disable poking, without changing app codes by setting `stopDynoPoking` env variable:
-
-	heroku config:add stopDynoPoking=true
+	
