@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = Dynopoker::VERSION
   s.authors     = ["kubenstein"]
   s.email       = ["kubenstein@gmail.com"]
-  s.homepage    = "http://wakemydyno.com"
+  s.homepage    = "https://github.com/kubenstein/dynopoker"
   s.summary     = %q{Dynopoker: prevent your heroku dyno from falling asleep}
   s.description = %q{Dynopoker is a gem that will make your ruby based heroku app self pinging system, preventing single dyno from falling asleep}
 
