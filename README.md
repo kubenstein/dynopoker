@@ -7,7 +7,7 @@ Inspired and sponsored by [http://wakemydyno.com](http://wakemydyno.com)
 
 Idea
 -------
-Dynopoker will command your app to ping itself every hour.
+Dynopoker will command your app to ping itself every 30 minutes.
 
 Installation
 -------
@@ -20,8 +20,8 @@ Usage
 Add this configuration to your config file:
 
 	Dynopoker.configure do |config|
-  		config.address = 'http://dynopoker.com'
+  		config.address = 'http://wakemydyno.com'
 	#  config.enable = false # default is true
-	#  config.poke_frequency = 123 # default is 3600s (1hour)
+	#  config.poke_frequency = 123 # default is 1800s (30min)
 	end
 	
