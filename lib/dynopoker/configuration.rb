@@ -5,7 +5,7 @@ module Dynopoker
     def initialize
       self.address = ''
       self.enable = true
-      self.poke_frequency = 3600
+      self.poke_frequency = 1800
       self.logger = Logger.new($stdout)
     end
 
