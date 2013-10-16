@@ -34,7 +34,7 @@ module Dynopoker
       logger.info "Dynopoker: poking #{address}"
       open(address).status
     rescue Exception => exception
-      configuration.logger.error "Dynopoker: poking error #{exception.class.name}: #{exception.message}"
+      logger.error "Dynopoker: poking error #{exception.class.name}: #{exception.message}"
     end
 
     def merge_default_options!
