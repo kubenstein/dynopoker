@@ -45,7 +45,7 @@ module Dynopoker
     end
 
     def should_poke?
-      address.present? && enable && poke_frequency.present?
+      !address.nil? && enable && !poke_frequency.nil?
     end
 
   end
