@@ -1,10 +1,11 @@
 require 'dynopoker/version'
 require 'open-uri'
+require 'logger'
 
 module Dynopoker
 
-  def self.configure
-    Poker.new.tap { |p| yield p }.start!
+  def self.configure(poker_factory = Poker)
+    poker_factory.new.tap { |p| yield p ; p.start! }
   end
 
   class Poker
