@@ -5,15 +5,16 @@ require 'logger'
 module Dynopoker
 
   def self.configure(poker_factory = Poker)
-    poker_factory.new.tap { |p| yield p ; p.start! }
+    poker_factory.new.tap { |p| yield p; p.start! }
   end
 
   class Poker
     attr_accessor :enable, :address, :poke_frequency, :logger
+    alias_method :enable?, :enable
 
     def start!
       merge_default_options!
-      start_poking_thread! if should_poke?
+      start_poking_thread! if enable?
     end
 
 
@@ -42,12 +43,13 @@ module Dynopoker
       self.poke_frequency ||= 1800
       self.logger ||= Logger.new($stdout)
       self.enable = enable.nil? ? true : enable
-      raise('Dynopoker: no address provided!') if !address && enable
+      raise('Dynopoker: no address provided!') if (enable? && !valid_address?)
     end
 
-    def should_poke?
-      !address.nil? && enable && !poke_frequency.nil?
+    def valid_address?
+      address && !address.empty?
     end
 
   end
+
 end
