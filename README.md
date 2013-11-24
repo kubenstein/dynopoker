@@ -1,4 +1,4 @@
-DynoPoker
+DynoPoker [![Build Status](https://travis-ci.org/kubenstein/dynopoker.png?branch=master)](https://travis-ci.org/kubenstein/dynopoker)
 =============
 
 Dynopoker is a gem which prevent your Heroku dyno from falling asleep.
