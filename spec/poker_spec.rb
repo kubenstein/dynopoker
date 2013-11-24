@@ -6,7 +6,6 @@ require 'ostruct'
 describe Dynopoker::Poker do
 
   context 'default params' do
-
     it 'should use default params if no other params are given' do
       subject.stub(start_poking_thread!: false, address: 'http://test.org')
       subject.start!
@@ -14,27 +13,38 @@ describe Dynopoker::Poker do
       subject.logger.class.name.should eq 'Logger'
       subject.enable.should be_true
     end
+  end
 
+  context 'no address provided error' do
     it 'should raise exception if address is not given' do
-      expect {
-        subject.start!
-      }.to raise_error(Exception, 'Dynopoker: no address provided!')
+      expect { subject.start! }.to raise_error(Exception, 'Dynopoker: no address provided!')
     end
 
+    it 'should raise exception if address is empty' do
+      subject.stub(address: '')
+      expect { subject.start! }.to raise_error(Exception, 'Dynopoker: no address provided!')
+    end
+
+    it 'should NOT raise exception if address is not given but poking is disabled' do
+      subject.stub(enable: false)
+      expect { subject.start! }.not_to raise_error(Exception, 'Dynopoker: no address provided!')
+    end
+
+    it 'should NOT raise exception if address is empty but poking is disabled' do
+      subject.stub(enable: false, address: '')
+      expect { subject.start! }.not_to raise_error(Exception, 'Dynopoker: no address provided!')
+    end
   end
 
   context 'thread' do
-
     it 'should start thread' do
       subject.stub(address: 'http://test.org')
       Thread.should_receive(:new).once
       subject.start!
     end
-
   end
 
   context 'poking' do
-
     before do
       #
       # testing while(true) in separate thread can be really tuff task
@@ -76,8 +86,6 @@ describe Dynopoker::Poker do
         subject.start!
       }.to raise_error(Exception, 'breaking while true loop')
     end
-
   end
-
 
 end
