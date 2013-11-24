@@ -24,4 +24,8 @@ Add this configuration to your config file:
 	#  config.enable = false # default is true
 	#  config.poke_frequency = 123 # default is 1800s (30min)
 	end
-	
+
+TODO
+-----
+Dynopoker is already doing what it was designed for. No extra features are needed. Code is very simple and well written.
+I recently added specs but I feel that those specs could be written better. Feel free to contribute.
