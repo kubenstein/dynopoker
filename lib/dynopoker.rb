@@ -4,8 +4,11 @@ require 'logger'
 
 module Dynopoker
 
-  def self.configure(poker_factory = Poker)
-    poker_factory.new.tap { |p| yield p; p.start! }
+  def self.configure(poker_factory = Poker, execution_flow = $0)
+    poker_factory.new.tap do |p|
+      yield p
+      p.start! unless execution_flow =~ /rake/
+    end
   end
 
   class Poker
