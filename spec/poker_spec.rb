@@ -7,10 +7,10 @@ describe Dynopoker::Poker do
 
   context 'default params' do
     it 'should use default params if no other params are given' do
-      subject.stub(start_poking_thread!: false, address: 'http://test.org')
+      subject.stub(:start_poking_thread! => false, :address => 'http://test.org')
       subject.start!
       subject.poke_frequency.should eq 1800
-      subject.logger.class.name.should eq 'Logger'
+      subject.logger.class.should eq Logger
       subject.enable.should be_true
     end
   end
@@ -21,24 +21,24 @@ describe Dynopoker::Poker do
     end
 
     it 'should raise exception if address is empty' do
-      subject.stub(address: '')
+      subject.stub(:address => '')
       expect { subject.start! }.to raise_error(Exception, 'Dynopoker: no address provided!')
     end
 
     it 'should NOT raise exception if address is not given but poking is disabled' do
-      subject.stub(enable: false)
+      subject.stub(:enable => false)
       expect { subject.start! }.not_to raise_error(Exception, 'Dynopoker: no address provided!')
     end
 
     it 'should NOT raise exception if address is empty but poking is disabled' do
-      subject.stub(enable: false, address: '')
+      subject.stub(:enable => false, :address => '')
       expect { subject.start! }.not_to raise_error(Exception, 'Dynopoker: no address provided!')
     end
   end
 
   context 'thread' do
     it 'should start thread' do
-      subject.stub(address: 'http://test.org')
+      subject.stub(:address => 'http://test.org')
       Thread.should_receive(:new).once
       subject.start!
     end
@@ -66,7 +66,7 @@ describe Dynopoker::Poker do
 
     it 'should poke address' do
       stub_request(:get, 'http://test.org')
-      subject.stub(address: 'http://test.org')
+      subject.stub(:address => 'http://test.org')
 
       expect {
         subject.start!
@@ -79,9 +79,9 @@ describe Dynopoker::Poker do
       fake_logger = double()
       fake_logger.stub(:info)
       fake_logger.stub(:error)
-      fake_logger.should_receive(:error).with('Dynopoker: poking error Errno::ENOENT: No such file or directory - INVALID_ADDRESS').twice
+      fake_logger.should_receive(:error).with(/Dynopoker: poking error Errno::ENOENT: No such file or directory .* INVALID_ADDRESS/).twice
 
-      subject.stub(address: 'INVALID_ADDRESS', logger: fake_logger)
+      subject.stub(:address => 'INVALID_ADDRESS', :logger => fake_logger)
       expect {
         subject.start!
       }.to raise_error(Exception, 'breaking while true loop')

@@ -6,13 +6,14 @@ require 'ostruct'
 describe Dynopoker do
 
   subject { Dynopoker }
-  let(:fake_poker) { Struct.new(:enable, :address, :poke_frequency, :logger, :start!) }
-  let(:fake_logger) { OpenStruct.new(fake?: true) }
+  let(:fake_poker_class) { double('FakePokerClass', :new => fake_poker) }
+  let(:fake_logger) { double }
+  let(:fake_poker) { OpenStruct.new(:address => nil, :enable => nil, :poke_frequency => nil, :logger => nil, :start! => nil) }
 
   context 'configuration' do
 
     it 'should pass config vars during configuration' do
-      new_instance_of_poker = subject.configure(fake_poker) do |config|
+      new_instance_of_poker = subject.configure(fake_poker_class) do |config|
         config.address = 'http://test.org'
         config.enable = false
         config.poke_frequency = 123
@@ -22,7 +23,7 @@ describe Dynopoker do
       new_instance_of_poker.address.should eq 'http://test.org'
       new_instance_of_poker.enable.should be_false
       new_instance_of_poker.poke_frequency.should eq 123
-      new_instance_of_poker.logger.should be_fake
+      new_instance_of_poker.logger.should eq fake_logger
     end
 
     it 'should pass start poking!' do
