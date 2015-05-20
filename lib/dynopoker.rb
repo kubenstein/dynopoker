@@ -12,7 +12,7 @@ module Dynopoker
   end
 
   class Poker
-    attr_accessor :enable, :address, :poke_frequency, :logger
+    attr_accessor :enable, :address, :poke_frequency, :logger, :should_poke
     alias_method :enable?, :enable
 
     def start!
@@ -30,7 +30,7 @@ module Dynopoker
 
     def poking
       while true
-        poke!
+        poke! if should_poke.call
         sleep(poke_frequency)
       end
     end
@@ -46,6 +46,7 @@ module Dynopoker
       self.poke_frequency ||= 1800
       self.logger ||= Logger.new($stdout)
       self.enable = enable.nil? ? true : enable
+      self.should_poke = Proc.new { true }
       raise('Dynopoker: no address provided!') if (enable? && !valid_address?)
     end
 

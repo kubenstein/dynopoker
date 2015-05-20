@@ -86,6 +86,21 @@ describe Dynopoker::Poker do
         subject.start!
       }.to raise_error(Exception, 'breaking while true loop')
     end
-  end
 
+    context 'should_poke configuration option set' do
+      it 'should poke regarding the result of the proc' do
+        stub_request(:get, 'http://test.org')
+        proc = Proc.new { true }
+
+        expect(proc).to receive(:call).twice.and_return(true, false)
+        subject.stub(:address => 'http://test.org', :should_poke => proc)
+
+        expect {
+          subject.start!
+        }.to raise_error(Exception, 'breaking while true loop')
+
+        WebMock.should have_requested(:get, 'http://test.org').once
+      end
+    end
+  end
 end
